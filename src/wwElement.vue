@@ -74,13 +74,16 @@ export default {
       const saturation = props.content?.saturation || 100;
       const hueRotate = props.content?.hueRotate || 0;
 
-      // Build color filter
+      // Build color filter - better approach for icon coloring
       let filterParts = [];
+      let useColorOverlay = false;
 
-      // If direct color is set, use drop-shadow to colorize
+      // If direct color is set, prepare for color overlay
       if (iconColorDirect) {
-        filterParts.push(`brightness(0) saturate(100%)`);
-        filterParts.push(`drop-shadow(0 0 0 ${iconColorDirect})`);
+        // Make image black first, then apply color via background
+        filterParts.push('brightness(0)');
+        filterParts.push('invert(1)');
+        useColorOverlay = true;
       } else {
         // Use filter adjustments
         if (brightness !== 100) {
@@ -101,7 +104,8 @@ export default {
         '--spin-duration': `${spinDuration}s`,
         '--fade-speed': `${fadeSpeed}s`,
         '--icon-filter': filterParts.length > 0 ? filterParts.join(' ') : 'none',
-        '--icon-color': iconColorDirect || 'transparent',
+        '--icon-background': useColorOverlay ? iconColorDirect : 'transparent',
+        '--icon-mix-blend': useColorOverlay ? 'multiply' : 'normal',
       };
     });
 
@@ -133,6 +137,8 @@ export default {
   height: 100%;
   object-fit: contain;
   filter: var(--icon-filter);
+  background-color: var(--icon-background);
+  mix-blend-mode: var(--icon-mix-blend);
 }
 
 /* Diagonal Animation */
