@@ -110,22 +110,12 @@ export default {
   5% {
     opacity: 1;
   }
-  45% {
+  95% {
     opacity: 1;
   }
-  50% {
+  100% {
     left: 115%;
     bottom: 115%;
-    opacity: 0;
-  }
-  55% {
-    left: -15%;
-    bottom: -15%;
-    opacity: 0;
-  }
-  100% {
-    left: -15%;
-    bottom: -15%;
     opacity: 0;
   }
 }
