@@ -126,6 +126,52 @@ export default {
       },
       /* wwEditor:end */
     },
+    horizontalAlign: {
+      label: {
+        en: 'Horizontal Alignment',
+        de: 'Horizontale Ausrichtung',
+      },
+      type: 'TextSelect',
+      section: 'settings',
+      options: {
+        options: [
+          { value: 'left', label: 'Left' },
+          { value: 'center', label: 'Center' },
+          { value: 'right', label: 'Right' },
+        ],
+      },
+      defaultValue: 'center',
+      bindable: true,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Valid values: left | center | right',
+      },
+      /* wwEditor:end */
+    },
+    verticalAlign: {
+      label: {
+        en: 'Vertical Alignment',
+        de: 'Vertikale Ausrichtung',
+      },
+      type: 'TextSelect',
+      section: 'settings',
+      options: {
+        options: [
+          { value: 'top', label: 'Top' },
+          { value: 'center', label: 'Center' },
+          { value: 'bottom', label: 'Bottom' },
+        ],
+      },
+      defaultValue: 'center',
+      bindable: true,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Valid values: top | center | bottom',
+      },
+      /* wwEditor:end */
+    },
     backgroundColor: {
       label: {
         en: 'Background Color',
@@ -139,6 +185,25 @@ export default {
       bindingValidation: {
         type: 'string',
         tooltip: 'Background color for the loader container',
+      },
+      /* wwEditor:end */
+    },
+    iconColor: {
+      label: {
+        en: 'Icon Color',
+        de: 'Icon-Farbe',
+      },
+      type: 'Color',
+      section: 'style',
+      defaultValue: '',
+      bindable: true,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Direct color for the icon (leave empty for original colors)',
+      },
+      propertyHelp: {
+        en: 'Set a direct color for the icon. Leave empty to use original icon colors with hue/brightness/saturation filters.',
       },
       /* wwEditor:end */
     },

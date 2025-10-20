@@ -38,14 +38,30 @@ export default {
       return props.content?.fadeEffect || 'fade';
     });
 
-    const loaderStyle = computed(() => ({
-      width: '100%',
-      height: '100%',
-      minHeight: '200px',
-      position: 'relative',
-      overflow: 'hidden',
-      backgroundColor: props.content?.backgroundColor || 'transparent',
-    }));
+    const loaderStyle = computed(() => {
+      const horizontalAlign = props.content?.horizontalAlign || 'center';
+      const verticalAlign = props.content?.verticalAlign || 'center';
+
+      let justifyContent = 'center';
+      if (horizontalAlign === 'left') justifyContent = 'flex-start';
+      if (horizontalAlign === 'right') justifyContent = 'flex-end';
+
+      let alignItems = 'center';
+      if (verticalAlign === 'top') alignItems = 'flex-start';
+      if (verticalAlign === 'bottom') alignItems = 'flex-end';
+
+      return {
+        width: '100%',
+        height: '100%',
+        minHeight: '200px',
+        position: 'relative',
+        overflow: 'hidden',
+        backgroundColor: props.content?.backgroundColor || 'transparent',
+        display: 'flex',
+        justifyContent,
+        alignItems,
+      };
+    });
 
     const hummelStyle = computed(() => {
       const size = props.content?.size || 150;
@@ -53,23 +69,28 @@ export default {
       const pulseDuration = props.content?.pulseDuration || 2;
       const spinDuration = props.content?.spinDuration || 2;
       const fadeSpeed = props.content?.fadeSpeed || 1;
-      const iconColor = props.content?.iconColor || '';
+      const iconColorDirect = props.content?.iconColor || '';
       const brightness = props.content?.brightness || 100;
       const saturation = props.content?.saturation || 100;
+      const hueRotate = props.content?.hueRotate || 0;
 
       // Build color filter
       let filterParts = [];
-      if (brightness !== 100) {
-        filterParts.push(`brightness(${brightness}%)`);
-      }
-      if (saturation !== 100) {
-        filterParts.push(`saturate(${saturation}%)`);
-      }
-      if (iconColor) {
-        // Add hue rotation for color change
-        const hue = props.content?.hueRotate || 0;
-        if (hue !== 0) {
-          filterParts.push(`hue-rotate(${hue}deg)`);
+
+      // If direct color is set, use drop-shadow to colorize
+      if (iconColorDirect) {
+        filterParts.push(`brightness(0) saturate(100%)`);
+        filterParts.push(`drop-shadow(0 0 0 ${iconColorDirect})`);
+      } else {
+        // Use filter adjustments
+        if (brightness !== 100) {
+          filterParts.push(`brightness(${brightness}%)`);
+        }
+        if (saturation !== 100) {
+          filterParts.push(`saturate(${saturation}%)`);
+        }
+        if (hueRotate !== 0) {
+          filterParts.push(`hue-rotate(${hueRotate}deg)`);
         }
       }
 
@@ -80,6 +101,7 @@ export default {
         '--spin-duration': `${spinDuration}s`,
         '--fade-speed': `${fadeSpeed}s`,
         '--icon-filter': filterParts.length > 0 ? filterParts.join(' ') : 'none',
+        '--icon-color': iconColorDirect || 'transparent',
       };
     });
 
@@ -95,15 +117,12 @@ export default {
 
 <style scoped lang="scss">
 .wohu-loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* Flexbox set via inline styles for dynamic alignment */
 }
 
 .hummel-container {
   width: var(--size);
   height: var(--size);
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
