@@ -88,7 +88,7 @@ export default {
 /* Diagonal Animation */
 .animation-diagonal {
   position: absolute;
-  animation: flyDiagonal var(--duration) ease-in-out forwards;
+  animation: flyDiagonal var(--duration) ease-in-out infinite;
 }
 
 @keyframes flyDiagonal {
@@ -100,12 +100,17 @@ export default {
   10% {
     opacity: 1;
   }
-  90% {
+  40% {
     opacity: 1;
   }
-  100% {
+  50% {
     left: 115%;
     bottom: 115%;
+    opacity: 0;
+  }
+  100% {
+    left: -15%;
+    bottom: -15%;
     opacity: 0;
   }
 }
