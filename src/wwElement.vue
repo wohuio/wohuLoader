@@ -2,7 +2,10 @@
   <div class="wohu-loader" :style="loaderStyle">
     <div
       class="hummel-container"
-      :class="`animation-${content?.animation || 'diagonal'}`"
+      :class="[
+        `animation-${content?.animation || 'diagonal'}`,
+        fadeEffect !== 'none' ? `fade-${fadeEffect}` : ''
+      ]"
       :style="hummelStyle"
     >
       <img
@@ -31,6 +34,10 @@ export default {
       return props.content?.customImage || 'https://raw.githubusercontent.com/wohuio/wohuLoader/main/hummel.png';
     });
 
+    const fadeEffect = computed(() => {
+      return props.content?.fadeEffect || 'fade';
+    });
+
     const loaderStyle = computed(() => ({
       width: '100%',
       height: '100%',
@@ -45,17 +52,20 @@ export default {
       const duration = props.content?.duration || 8;
       const pulseDuration = props.content?.pulseDuration || 2;
       const spinDuration = props.content?.spinDuration || 2;
+      const fadeSpeed = props.content?.fadeSpeed || 1;
 
       return {
         '--size': `${size}px`,
         '--duration': `${duration}s`,
         '--pulse-duration': `${pulseDuration}s`,
         '--spin-duration': `${spinDuration}s`,
+        '--fade-speed': `${fadeSpeed}s`,
       };
     });
 
     return {
       imageUrl,
+      fadeEffect,
       loaderStyle,
       hummelStyle,
     };
@@ -97,15 +107,20 @@ export default {
     bottom: -15%;
     opacity: 0;
   }
-  10% {
+  5% {
     opacity: 1;
   }
-  40% {
+  45% {
     opacity: 1;
   }
   50% {
     left: 115%;
     bottom: 115%;
+    opacity: 0;
+  }
+  55% {
+    left: -15%;
+    bottom: -15%;
     opacity: 0;
   }
   100% {
@@ -164,5 +179,124 @@ export default {
   animation:
     pulse var(--pulse-duration) ease-in-out infinite,
     spin var(--spin-duration) linear infinite;
+}
+
+/* Fade Effects */
+.fade-fade {
+  animation-name: flyDiagonal, smoothFade;
+  animation-duration: var(--duration), var(--fade-speed);
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+
+@keyframes smoothFade {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.fade-pulse {
+  animation-name: flyDiagonal, pulseFade;
+  animation-duration: var(--duration), var(--fade-speed);
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+
+@keyframes pulseFade {
+  0% {
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.fade-blink {
+  animation-name: flyDiagonal, blinkEffect;
+  animation-duration: var(--duration), var(--fade-speed);
+  animation-timing-function: ease-in-out, step-end;
+  animation-iteration-count: infinite, infinite;
+}
+
+@keyframes blinkEffect {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Override for non-diagonal animations with fade effects */
+.animation-pulse.fade-fade,
+.animation-spin.fade-fade,
+.animation-bounce.fade-fade,
+.animation-pulse-spin.fade-fade {
+  animation-name: pulse, smoothFade;
+}
+
+.animation-pulse.fade-pulse,
+.animation-spin.fade-pulse,
+.animation-bounce.fade-pulse,
+.animation-pulse-spin.fade-pulse {
+  animation-name: pulse, pulseFade;
+}
+
+.animation-pulse.fade-blink,
+.animation-spin.fade-blink,
+.animation-bounce.fade-blink,
+.animation-pulse-spin.fade-blink {
+  animation-name: pulse, blinkEffect;
+}
+
+.animation-spin.fade-fade {
+  animation-name: spin, smoothFade;
+}
+
+.animation-spin.fade-pulse {
+  animation-name: spin, pulseFade;
+}
+
+.animation-spin.fade-blink {
+  animation-name: spin, blinkEffect;
+}
+
+.animation-bounce.fade-fade {
+  animation-name: bounce, smoothFade;
+}
+
+.animation-bounce.fade-pulse {
+  animation-name: bounce, pulseFade;
+}
+
+.animation-bounce.fade-blink {
+  animation-name: bounce, blinkEffect;
+}
+
+.animation-pulse-spin.fade-fade {
+  animation-name: pulse, spin, smoothFade;
+  animation-duration: var(--pulse-duration), var(--spin-duration), var(--fade-speed);
+}
+
+.animation-pulse-spin.fade-pulse {
+  animation-name: pulse, spin, pulseFade;
+  animation-duration: var(--pulse-duration), var(--spin-duration), var(--fade-speed);
+}
+
+.animation-pulse-spin.fade-blink {
+  animation-name: pulse, spin, blinkEffect;
+  animation-duration: var(--pulse-duration), var(--spin-duration), var(--fade-speed);
 }
 </style>

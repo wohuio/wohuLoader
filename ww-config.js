@@ -160,5 +160,55 @@ export default {
       },
       /* wwEditor:end */
     },
+    fadeEffect: {
+      label: {
+        en: 'Fade Effect',
+        de: 'Fade-Effekt',
+      },
+      type: 'TextSelect',
+      section: 'settings',
+      options: {
+        options: [
+          { value: 'none', label: 'None' },
+          { value: 'fade', label: 'Smooth Fade' },
+          { value: 'pulse', label: 'Pulse Fade' },
+          { value: 'blink', label: 'Blink' },
+        ],
+      },
+      defaultValue: 'fade',
+      bindable: true,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Valid values: none | fade | pulse | blink',
+      },
+      propertyHelp: {
+        en: 'Adds additional fade/blink effects to the loader animation',
+      },
+      /* wwEditor:end */
+    },
+    fadeSpeed: {
+      label: {
+        en: 'Fade Speed (seconds)',
+        de: 'Fade-Geschwindigkeit (Sekunden)',
+      },
+      type: 'Number',
+      section: 'settings',
+      min: 0.3,
+      max: 3,
+      step: 0.1,
+      defaultValue: 1,
+      bindable: true,
+      hidden: (content) => content?.fadeEffect === 'none',
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'number',
+        tooltip: 'Speed of the fade effect in seconds',
+      },
+      propertyHelp: {
+        en: 'Controls how fast the fade/blink effect occurs',
+      },
+      /* wwEditor:end */
+    },
   },
 };
