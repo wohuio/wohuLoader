@@ -39,17 +39,6 @@ export default {
     });
 
     const loaderStyle = computed(() => {
-      const horizontalAlign = props.content?.horizontalAlign || 'center';
-      const verticalAlign = props.content?.verticalAlign || 'center';
-
-      let justifyContent = 'center';
-      if (horizontalAlign === 'left') justifyContent = 'flex-start';
-      if (horizontalAlign === 'right') justifyContent = 'flex-end';
-
-      let alignItems = 'center';
-      if (verticalAlign === 'top') alignItems = 'flex-start';
-      if (verticalAlign === 'bottom') alignItems = 'flex-end';
-
       return {
         width: '100%',
         height: '100%',
@@ -58,8 +47,8 @@ export default {
         overflow: 'hidden',
         backgroundColor: props.content?.backgroundColor || 'transparent',
         display: 'flex',
-        justifyContent,
-        alignItems,
+        justifyContent: 'center',
+        alignItems: 'center',
       };
     });
 
@@ -69,18 +58,6 @@ export default {
       const pulseDuration = props.content?.pulseDuration || 2;
       const spinDuration = props.content?.spinDuration || 2;
       const fadeSpeed = props.content?.fadeSpeed || 1;
-      const iconColorDirect = props.content?.iconColor || '';
-
-      // Build color filter
-      let filterParts = [];
-
-      // If direct color is set, apply it
-      if (iconColorDirect) {
-        // Colorize the icon by making it a silhouette
-        filterParts.push('brightness(0)');
-        filterParts.push('saturate(100%)');
-        filterParts.push(`drop-shadow(0 0 0 ${iconColorDirect})`);
-      }
 
       return {
         '--size': `${size}px`,
@@ -88,7 +65,6 @@ export default {
         '--pulse-duration': `${pulseDuration}s`,
         '--spin-duration': `${spinDuration}s`,
         '--fade-speed': `${fadeSpeed}s`,
-        '--icon-filter': filterParts.length > 0 ? filterParts.join(' ') : 'none',
       };
     });
 
@@ -120,9 +96,6 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: var(--icon-filter);
-  background-color: var(--icon-background);
-  mix-blend-mode: var(--icon-mix-blend);
 }
 
 /* Diagonal Animation */
