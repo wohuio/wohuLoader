@@ -53,6 +53,25 @@ export default {
       const pulseDuration = props.content?.pulseDuration || 2;
       const spinDuration = props.content?.spinDuration || 2;
       const fadeSpeed = props.content?.fadeSpeed || 1;
+      const iconColor = props.content?.iconColor || '';
+      const brightness = props.content?.brightness || 100;
+      const saturation = props.content?.saturation || 100;
+
+      // Build color filter
+      let filterParts = [];
+      if (brightness !== 100) {
+        filterParts.push(`brightness(${brightness}%)`);
+      }
+      if (saturation !== 100) {
+        filterParts.push(`saturate(${saturation}%)`);
+      }
+      if (iconColor) {
+        // Add hue rotation for color change
+        const hue = props.content?.hueRotate || 0;
+        if (hue !== 0) {
+          filterParts.push(`hue-rotate(${hue}deg)`);
+        }
+      }
 
       return {
         '--size': `${size}px`,
@@ -60,6 +79,7 @@ export default {
         '--pulse-duration': `${pulseDuration}s`,
         '--spin-duration': `${spinDuration}s`,
         '--fade-speed': `${fadeSpeed}s`,
+        '--icon-filter': filterParts.length > 0 ? filterParts.join(' ') : 'none',
       };
     });
 
@@ -93,6 +113,7 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: var(--icon-filter);
 }
 
 /* Diagonal Animation */
@@ -169,6 +190,79 @@ export default {
   animation:
     pulse var(--pulse-duration) ease-in-out infinite,
     spin var(--spin-duration) linear infinite;
+}
+
+/* Multi-Position Fade Animation */
+.animation-multi-position {
+  position: absolute;
+  animation: multiPositionFade var(--duration) ease-in-out infinite;
+}
+
+@keyframes multiPositionFade {
+  /* Position 1: Top Left */
+  0%, 5% {
+    left: 20%;
+    top: 20%;
+    opacity: 0;
+  }
+  6%, 14% {
+    opacity: 1;
+  }
+  15%, 19% {
+    opacity: 0;
+  }
+
+  /* Position 2: Top Right */
+  20% {
+    left: 70%;
+    top: 20%;
+    opacity: 0;
+  }
+  21%, 34% {
+    opacity: 1;
+  }
+  35%, 39% {
+    opacity: 0;
+  }
+
+  /* Position 3: Bottom Right */
+  40% {
+    left: 70%;
+    top: 70%;
+    opacity: 0;
+  }
+  41%, 54% {
+    opacity: 1;
+  }
+  55%, 59% {
+    opacity: 0;
+  }
+
+  /* Position 4: Bottom Left */
+  60% {
+    left: 20%;
+    top: 70%;
+    opacity: 0;
+  }
+  61%, 74% {
+    opacity: 1;
+  }
+  75%, 79% {
+    opacity: 0;
+  }
+
+  /* Position 5: Center */
+  80% {
+    left: 45%;
+    top: 45%;
+    opacity: 0;
+  }
+  81%, 94% {
+    opacity: 1;
+  }
+  95%, 100% {
+    opacity: 0;
+  }
 }
 
 /* Fade Effects */

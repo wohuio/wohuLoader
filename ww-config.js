@@ -21,6 +21,7 @@ export default {
           { value: 'spin', label: 'Spin' },
           { value: 'bounce', label: 'Bounce' },
           { value: 'pulse-spin', label: 'Pulse + Spin' },
+          { value: 'multi-position', label: 'Multi-Position Fade' },
         ],
       },
       defaultValue: 'diagonal',
@@ -207,6 +208,66 @@ export default {
       },
       propertyHelp: {
         en: 'Controls how fast the fade/blink effect occurs',
+      },
+      /* wwEditor:end */
+    },
+    brightness: {
+      label: {
+        en: 'Brightness (%)',
+        de: 'Helligkeit (%)',
+      },
+      type: 'Number',
+      section: 'style',
+      min: 0,
+      max: 200,
+      step: 10,
+      defaultValue: 100,
+      bindable: true,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'number',
+        tooltip: 'Icon brightness percentage (0-200)',
+      },
+      /* wwEditor:end */
+    },
+    saturation: {
+      label: {
+        en: 'Saturation (%)',
+        de: 'Sättigung (%)',
+      },
+      type: 'Number',
+      section: 'style',
+      min: 0,
+      max: 200,
+      step: 10,
+      defaultValue: 100,
+      bindable: true,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'number',
+        tooltip: 'Icon saturation percentage (0-200)',
+      },
+      /* wwEditor:end */
+    },
+    hueRotate: {
+      label: {
+        en: 'Hue Rotate (degrees)',
+        de: 'Farbton drehen (Grad)',
+      },
+      type: 'Number',
+      section: 'style',
+      min: 0,
+      max: 360,
+      step: 10,
+      defaultValue: 0,
+      bindable: true,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'number',
+        tooltip: 'Rotate hue to change icon color (0-360 degrees)',
+      },
+      propertyHelp: {
+        en: 'Change the icon color by rotating the hue (0° = original, 180° = opposite color)',
       },
       /* wwEditor:end */
     },
