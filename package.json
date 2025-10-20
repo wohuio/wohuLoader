@@ -1,0 +1,17 @@
+{
+  "name": "wohuloader",
+  "version": "1.0.0",
+  "description": "Animated Hummel (Bee) Loader with multiple animation modes",
+  "main": "hummel-loader.html",
+  "scripts": {
+    "start": "open hummel-loader.html"
+  },
+  "keywords": [
+    "loader",
+    "animation",
+    "bee",
+    "hummel"
+  ],
+  "author": "Keller",
+  "license": "MIT"
+}

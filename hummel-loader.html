@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hummel Loader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: transparent;
+            position: relative;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hummel-container {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .hummel {
+            width: 100%;
+            height: 100%;
+            background-image: url('hummel.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+        }
+
+        /* Diagonal Animation */
+        .animation-diagonal {
+            width: 150px;
+            height: 150px;
+            animation: flyDiagonal 8s ease-in-out forwards;
+        }
+
+        @keyframes flyDiagonal {
+            0% {
+                left: -15%;
+                bottom: -15%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                left: 115%;
+                bottom: 115%;
+                opacity: 0;
+            }
+        }
+
+        /* Pulse Animation */
+        .animation-pulse {
+            width: 150px;
+            height: 150px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+        }
+
+        /* Spin Animation */
+        .animation-spin {
+            width: 150px;
+            height: 150px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Bounce Animation */
+        .animation-bounce {
+            width: 150px;
+            height: 150px;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        /* Pulse + Spin Combination */
+        .animation-pulse-spin {
+            width: 150px;
+            height: 150px;
+            animation: pulse 2s ease-in-out infinite, spin 3s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="hummel-container animation-diagonal">
+        <div class="hummel"></div>
+    </div>
+
+    <script>
+        // Configuration object - can be modified
+        const config = {
+            animation: 'diagonal', // Options: 'diagonal', 'pulse', 'spin', 'bounce', 'pulse-spin'
+            size: 150,             // Size in pixels
+            duration: 8,           // Duration in seconds (for diagonal)
+            pulseDuration: 2,      // Pulse animation duration
+            spinDuration: 2        // Spin animation duration
+        };
+
+        // Apply configuration
+        function applyConfig() {
+            const container = document.querySelector('.hummel-container');
+
+            // Remove all animation classes
+            container.className = 'hummel-container';
+
+            // Add selected animation class
+            container.classList.add(`animation-${config.animation}`);
+
+            // Set size
+            container.style.width = config.size + 'px';
+            container.style.height = config.size + 'px';
+
+            // Update animation durations dynamically
+            if (config.animation === 'diagonal') {
+                container.style.animationDuration = config.duration + 's';
+            } else if (config.animation === 'pulse') {
+                container.style.animationDuration = config.pulseDuration + 's';
+            } else if (config.animation === 'spin') {
+                container.style.animationDuration = config.spinDuration + 's';
+            }
+        }
+
+        // Apply config on load
+        applyConfig();
+
+        // Example: Change animation after page load
+        // setTimeout(() => {
+        //     config.animation = 'pulse';
+        //     applyConfig();
+        // }, 3000);
+    </script>
+</body>
+</html>
