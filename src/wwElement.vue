@@ -113,6 +113,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .hummel-image {
@@ -151,6 +152,7 @@ export default {
 
 /* Pulse Animation */
 .animation-pulse {
+  position: static;
   animation: pulse var(--pulse-duration) ease-in-out infinite;
 }
 
@@ -167,6 +169,7 @@ export default {
 
 /* Spin Animation */
 .animation-spin {
+  position: static;
   animation: spin var(--spin-duration) linear infinite;
 }
 
@@ -181,6 +184,7 @@ export default {
 
 /* Bounce Animation */
 .animation-bounce {
+  position: static;
   animation: bounce var(--pulse-duration) ease-in-out infinite;
 }
 
@@ -195,6 +199,7 @@ export default {
 
 /* Pulse-Spin Animation */
 .animation-pulse-spin {
+  position: static;
   animation:
     pulse var(--pulse-duration) ease-in-out infinite,
     spin var(--spin-duration) linear infinite;
