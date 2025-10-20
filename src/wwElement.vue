@@ -70,31 +70,16 @@ export default {
       const spinDuration = props.content?.spinDuration || 2;
       const fadeSpeed = props.content?.fadeSpeed || 1;
       const iconColorDirect = props.content?.iconColor || '';
-      const brightness = props.content?.brightness || 100;
-      const saturation = props.content?.saturation || 100;
-      const hueRotate = props.content?.hueRotate || 0;
 
-      // Build color filter - better approach for icon coloring
+      // Build color filter
       let filterParts = [];
-      let useColorOverlay = false;
 
-      // If direct color is set, prepare for color overlay
+      // If direct color is set, apply it
       if (iconColorDirect) {
-        // Make image black first, then apply color via background
+        // Colorize the icon by making it a silhouette
         filterParts.push('brightness(0)');
-        filterParts.push('invert(1)');
-        useColorOverlay = true;
-      } else {
-        // Use filter adjustments
-        if (brightness !== 100) {
-          filterParts.push(`brightness(${brightness}%)`);
-        }
-        if (saturation !== 100) {
-          filterParts.push(`saturate(${saturation}%)`);
-        }
-        if (hueRotate !== 0) {
-          filterParts.push(`hue-rotate(${hueRotate}deg)`);
-        }
+        filterParts.push('saturate(100%)');
+        filterParts.push(`drop-shadow(0 0 0 ${iconColorDirect})`);
       }
 
       return {
@@ -104,8 +89,6 @@ export default {
         '--spin-duration': `${spinDuration}s`,
         '--fade-speed': `${fadeSpeed}s`,
         '--icon-filter': filterParts.length > 0 ? filterParts.join(' ') : 'none',
-        '--icon-background': useColorOverlay ? iconColorDirect : 'transparent',
-        '--icon-mix-blend': useColorOverlay ? 'multiply' : 'normal',
       };
     });
 
