@@ -40,15 +40,7 @@ export default {
 
     const loaderStyle = computed(() => {
       return {
-        width: '100%',
-        height: '100%',
-        minHeight: '200px',
-        position: 'relative',
-        overflow: 'hidden',
         backgroundColor: props.content?.backgroundColor || 'transparent',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
       };
     });
 
@@ -80,7 +72,13 @@ export default {
 
 <style scoped lang="scss">
 .wohu-loader {
-  /* Flexbox set via inline styles for dynamic alignment */
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hummel-container {
