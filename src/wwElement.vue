@@ -72,10 +72,10 @@ export default {
 
 <style scoped lang="scss">
 .wohu-loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
 }
 
 .hummel-container {
@@ -84,7 +84,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hummel-container.animation-diagonal,
+.hummel-container.animation-multi-position {
+  position: absolute;
+  transform: none;
+  top: auto;
+  left: auto;
 }
 
 .hummel-image {
