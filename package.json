@@ -1,17 +1,11 @@
 {
   "name": "wohuloader",
-  "version": "1.0.0",
-  "description": "Animated Hummel (Bee) Loader with multiple animation modes",
-  "main": "hummel-loader.html",
+  "version": "0.0.1",
   "scripts": {
-    "start": "open hummel-loader.html"
+    "build": "weweb build",
+    "serve": "weweb serve"
   },
-  "keywords": [
-    "loader",
-    "animation",
-    "bee",
-    "hummel"
-  ],
-  "author": "Keller",
-  "license": "MIT"
+  "devDependencies": {
+    "@weweb/cli": "latest"
+  }
 }
